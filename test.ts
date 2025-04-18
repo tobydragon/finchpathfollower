@@ -11,14 +11,35 @@ function exampleTest():void{
 }
 
 function testPathStepReverseIfTurn(){
-    const pathStep = new PathTools.PathStep("Right", 2);
-    assertEqual("hi", "hi");
+    let pathStep = new PathTools.PathStep("right", 3);
+    let revStep = pathStep.reverseIfTurn();
+    assertEqual("testPathStepReverseIfTurn", "left", revStep.movement);
+    assertEqual("testPathStepReverseIfTurn", 3, revStep.amount);
+    assertEqual("testPathStepReverseIfTurn", "right", pathStep.movement);
+    assertEqual("testPathStepReverseIfTurn", 3, pathStep.amount);
+
+    pathStep = new PathTools.PathStep("left", 5);
+    revStep = pathStep.reverseIfTurn();
+    assertEqual("testPathStepReverseIfTurn", "right", revStep.movement);
+    assertEqual("testPathStepReverseIfTurn", 5, revStep.amount);
+    assertEqual("testPathStepReverseIfTurn", "left", pathStep.movement);
+    assertEqual("testPathStepReverseIfTurn", 5, pathStep.amount);
+
+    pathStep = new PathTools.PathStep("forward", 7);
+    revStep = pathStep.reverseIfTurn();
+    assertEqual("testPathStepReverseIfTurn", "forward", revStep.movement);
+    assertEqual("testPathStepReverseIfTurn", 7, revStep.amount);
+    assertEqual("testPathStepReverseIfTurn", "forward", pathStep.movement);
+    assertEqual("testPathStepReverseIfTurn", 7, pathStep.amount);
 
 }
+
+
+
 //--------------- generic testing functions ------------------//
-function assertEqual(expected: any, actual: any) {
+function assertEqual(testName:string, expected: any, actual: any) {
     if (expected !== actual) {
-        throw "AssertEquals failed. Expected:" + expected + " Actual:" + actual;
+        throw testName + " failed. Expected:" + expected + " Actual:" + actual;
     }
 }
 
@@ -38,7 +59,7 @@ function runTests(testsToRun:(()=>void)[]){
     }
     console.log("Passed " + passedTestCount + " tests");
     if (failedTestCount > 0){
-        throw "Failed " + failedTestCount + " tests:" + failMessages.join("\n");
+        throw "Failed " + failedTestCount + " tests:\n" + failMessages.join("\n");
     }
 }
 
