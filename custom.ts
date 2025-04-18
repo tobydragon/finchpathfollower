@@ -51,6 +51,7 @@ namespace PathTools {
             for(let i=0; i<this.pathSteps.length; i++){
                 returnPath.addExistingPathStep(this.pathSteps[i].reverseIfTurn());
             } 
+            returnPath.pathSteps.reverse();
             return returnPath;
         }
     }
