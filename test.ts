@@ -1,4 +1,5 @@
-// just an eample of how you can fail a test, and how you can write output
+// just an example of how you can fail a test, and how you can write output
+// to see it work, add it to the "tests" list at the bottom of the file
 // to see a failing test, change the value of x
 function exampleTest():void{
     let x = 5;
@@ -7,6 +8,26 @@ function exampleTest():void{
     }
     else {
         throw "Testing how to show an error";
+    }
+}
+
+function testPathCreateReturnPath(){
+    let path:PathTools.Path = new PathTools.Path();
+    path.addNewPathStep("forward", 2);
+    path.addNewPathStep("forward", 2);
+    path.addNewPathStep("right", 90);
+    path.addNewPathStep("forward", 2);
+    path.addNewPathStep("forward", 2);
+    path.addNewPathStep("left", 90);
+    path.addNewPathStep("left", 90);
+    path.addNewPathStep("forward", 2);
+
+    let returnPath:PathTools.Path = path.createReturnPath();
+    let returnMovements:string[] = returnPath.pathSteps.map(pathStep=>pathStep.movement);
+    let expected: String[] = ["forward", "right", "right", "forward", "forward", "left", "forward", "forward"]
+    assertEqual("testPathCreateReturnPath", expected.length, returnMovements.length);
+    for (let i=0; i<expected.length; i++){
+        assertEqual("testPathCreateReturnPath", expected[i], returnMovements[i]);
     }
 }
 
@@ -63,5 +84,5 @@ function runTests(testsToRun:(()=>void)[]){
     }
 }
 
-const tests = [exampleTest, testPathStepReverseIfTurn];
+const tests = [testPathStepReverseIfTurn, testPathCreateReturnPath];
 runTests(tests);
