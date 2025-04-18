@@ -10,4 +10,37 @@ function exampleTest():void{
     }
 }
 
-exampleTest();
+function testPathStepReverseIfTurn(){
+    const pathStep = new PathTools.PathStep("Right", 2);
+    assertEqual("hi", "hi");
+
+}
+//--------------- generic testing functions ------------------//
+function assertEqual(expected: any, actual: any) {
+    if (expected !== actual) {
+        throw "AssertEquals failed. Expected:" + expected + " Actual:" + actual;
+    }
+}
+
+function runTests(testsToRun:(()=>void)[]){
+    let passedTestCount = 0;
+    let failedTestCount = 0;
+    let failMessages:string[] = [];
+    for(let i=0; i<testsToRun.length; i++){
+        try{
+            testsToRun[i]();
+            passedTestCount++;
+        }
+        catch(e){
+            failedTestCount++;
+            failMessages.push(e);
+        }
+    }
+    console.log("Passed " + passedTestCount + " tests");
+    if (failedTestCount > 0){
+        throw "Failed " + failedTestCount + " tests:" + failMessages.join("\n");
+    }
+}
+
+const tests = [exampleTest, testPathStepReverseIfTurn];
+runTests(tests);

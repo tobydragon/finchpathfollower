@@ -62,7 +62,7 @@ namespace PathTools {
     }
 }
 
-namespace FinchLineTools{
+namespace FinchPathTools{
     
     function finchTakePathStep(pathStep: PathTools.PathStep):void {
         if(pathStep.movement === "forward"){

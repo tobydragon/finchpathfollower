@@ -33,7 +33,7 @@ input.onButtonPressed(Button.B, function () {
         `)
     amFollowingLine = 0
     finch.setTurn(RLDir.Right, 180, 50)
-    FinchLineTools.finchFollowPath(linePath.createReturnPath())
+    FinchPathTools.finchFollowPath(linePath.createReturnPath())
 })
 let linePath: PathTools.Path = null
 let amFollowingLine = 0
