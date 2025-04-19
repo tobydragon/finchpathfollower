@@ -11,6 +11,32 @@ function exampleTest():void{
     }
 }
 
+function testCreateFasterPath(){
+    let path: PathTools.Path = new PathTools.Path();
+    path.addNewPathStep("forward", 1);
+    path.addNewPathStep("forward", 1);
+    path.addNewPathStep("right", 2);
+    path.addNewPathStep("forward", 1);
+    path.addNewPathStep("forward", 1);
+    path.addNewPathStep("forward", 1);
+    path.addNewPathStep("forward", 1);
+    path.addNewPathStep("left", 2);
+    path.addNewPathStep("left", 2);
+    path.addNewPathStep("forward", 1);
+
+    let newPath:PathTools.Path = path.createFasterPath();
+    let newMovements: string[] = newPath.pathSteps.map(pathStep => pathStep.movement);
+    let newAmounts: number[] = newPath.pathSteps.map(pathStep => pathStep.amount);
+    let expectedMovements: String[] = ["forward", "right", "forward", "left", "forward"]
+    let expectedAmounts: Number[] = [2, 2, 4, 4, 1]
+    assertEqual("testCreateFasterPath", expectedMovements.length, newMovements.length);
+    assertEqual("testCreateFasterPath", expectedAmounts.length, newAmounts.length);
+    for (let i = 0; i < expectedMovements.length; i++) {
+        assertEqual("testPathCreateReturnPath", expectedMovements[i], newMovements[i]);
+        assertEqual("testPathCreateReturnPath", expectedAmounts[i], newAmounts[i]);
+    }
+}
+
 function testPathCreateReturnPath(){
     let path:PathTools.Path = new PathTools.Path();
     path.addNewPathStep("forward", 2);
@@ -84,5 +110,5 @@ function runTests(testsToRun:(()=>void)[]){
     }
 }
 
-const tests = [testPathStepReverseIfTurn, testPathCreateReturnPath];
+const tests = [testCreateFasterPath, testPathStepReverseIfTurn, testPathCreateReturnPath];
 runTests(tests);
